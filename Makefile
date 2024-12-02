@@ -5,7 +5,11 @@ all:
 
 .PHONY: day01
 day01: bin/day01
+	@$< < data/day01/input
+
 day02: bin/day02
+	@$< -1 < data/day02/input
+	@$< -2 < data/day02/input
 
 .PHONY: clean
 clean:

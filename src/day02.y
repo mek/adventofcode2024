@@ -19,7 +19,7 @@ extern void calc(void);
 
 statement: /* nothing */
   | statement NUM  { process($2); }
-  | statement '\n' { calc();          }
+  | statement '\n' { calc();      }         
 
 %%
 
@@ -105,9 +105,8 @@ process(int i)
   }
 
   if(numcount>1)
-    if(getRate(lastdiff)!=rate || abs(lastdiff)>3) {
+    if(getRate(lastdiff)!=rate || abs(lastdiff)>3)
       badcount++;
-    }
 
   lastnum = i;
   numcount++;
@@ -118,11 +117,7 @@ process(int i)
 void
 calc(void)
 {
-   // printf("%4d badcount: %4d tolerance: %2d\n",linenum,badcount,tolerance);
-   if(badcount <= tolerance) {
-     printf("%d\n",linenum);
-     safecount++; 
-   }
+   if(badcount <= tolerance)  safecount++; 
 
    badcount = 0;
    numcount = 0;
@@ -144,14 +139,14 @@ main(int argc, char* argv[])
     argv++;
   }  
   if(argc!=1 || (part!=1 && part!=2)){
-    fprintf(stderr,"usage: %s [1|2]\n",progname);
+    fprintf(stderr,"usage: %s [-1|-2]\n",progname);
     return 1;
   }
-  tolerance = --part;
+  tolerance = part - 1;
 
   yyparse();
 
-  printf("total: %d\n",safecount);
+  printf("part%d total: %d\n",part,safecount);
 
   return 0;
 }
