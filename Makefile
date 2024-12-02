@@ -5,6 +5,7 @@ all:
 
 .PHONY: day01
 day01: bin/day01
+day02: bin/day02
 
 .PHONY: clean
 clean:
