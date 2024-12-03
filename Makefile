@@ -15,6 +15,8 @@ day02: bin/day02
 clean:
 	@rm -f *~
 	@rm -f src/*~
+	@rm -f lib/aoc.a
+	@rm -f obj/*
 
 src/day%.c: src/day%.y
 	@echo Making $@ from $<
@@ -25,3 +27,20 @@ bin/day%: src/day%.c
 	@echo compiling $@
 	@$(CC) $< -o $@
 
+obj/aoc.o: src/aoc.c
+	@$(CC) -Wall -c $< -o $@
+
+lib/aoc.a: obj/aoc.o
+	@rm -rf $@
+	@ar cr $@ $<
+	@ranlib $@ 
+
+obj/test.o: src/test.c
+	@$(CC) -Wall -c $< -o $@
+
+.PHONY: test
+test: bin/test
+	@bin/test < testdata/test/input
+
+bin/test: obj/test.o lib/aoc.a include/aoc.h
+	@gcc -g -s -o bin/test obj/test.o lib/aoc.a
