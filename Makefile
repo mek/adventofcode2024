@@ -7,9 +7,26 @@ all:
 day01: bin/day01
 	@$< < data/day01/input
 
+.PHONY: day02
 day02: bin/day02
 	@$< -1 < data/day02/input
 	@$< -2 < data/day02/input
+
+.PHONY: day03
+day03: bin/day03
+
+bin/day03: src/day03.l src/day03.y
+	@flex -l -o obj/day03.yy.c src/day03.l
+	@yacc -d src/day03.y 
+	@mv y.tab.c obj/day03.tab.c
+	@mv y.tab.h obj/day03.tab.h
+	@cc -lfl -o bin/day03 obj/day03.yy.c obj/day03.tab.c
+	@echo test data 1
+	@bin/day03  < testdata/day03/input
+	@echo test data 2
+	@bin/day03  < testdata/day03/input2
+	@echo data
+	@bin/day03  < data/day03/input
 
 .PHONY: clean
 clean:
