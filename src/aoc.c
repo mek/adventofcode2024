@@ -47,9 +47,10 @@ char
   char *new = NULL;
   unsigned int buffer_size = 0;
   unsigned int len = 0;
-  char c;
+  unsigned char c;
 
-  while((c=fgetc(file))!=255){
+  while((c=fgetc(file))!=EOF) {
+    if(feof(file)) break;
     if(len+1>buffer_size){ /* need bigger buffer size */
       buffer_size = (buffer_size == 0) ? 32 : buffer_size * 2;
       new = realloc(buffer,buffer_size);
