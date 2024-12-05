@@ -24,6 +24,11 @@ bin/day03: src/day03.l src/day03.y
 	@mv y.tab.h obj/day03.tab.h
 	@cc -lfl -o bin/day03 obj/day03.yy.c obj/day03.tab.c
 
+bin/day05: src/day05.tcl
+	@echo copy $< to $@
+	cp $< $@
+	chmod 0755 $@
+
 .PHONY: clean
 clean:
 	@rm -f *~
