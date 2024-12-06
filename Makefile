@@ -29,11 +29,19 @@ bin/day05: src/day05.tcl
 	cp $< $@
 	chmod 0755 $@
 
+# day 06 using the aoc library
+obj/day06.o: src/day06.c
+	@$(CC) -Wall -c $< -o $@
+	
+bin/day06: obj/day06.o lib/aoc.a include/aoc.h
+	@$(CC) $(CCFLAGS) -g -s -o $@ obj/day06.o lib/aoc.a
+	
 .PHONY: clean
 clean:
 	@rm -f *~
 	@rm -f src/*~
 	@rm -f lib/aoc.a
+	@rm -f include/*~
 	@rm -f obj/*
 
 src/day%.c: src/day%.y
