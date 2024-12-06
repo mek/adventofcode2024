@@ -32,7 +32,7 @@ bin/day05: src/day05.tcl
 # day 06 using the aoc library
 obj/day06.o: src/day06.c
 	@$(CC) -Wall -c $< -o $@
-	
+
 bin/day06: obj/day06.o lib/aoc.a include/aoc.h
 	@$(CC) $(CCFLAGS) -g -s -o $@ obj/day06.o lib/aoc.a
 	

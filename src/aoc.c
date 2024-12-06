@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 unsigned int
-stringLen(const char *str)
+str_len(const char *str)
 {
 
   const char *tmp;
