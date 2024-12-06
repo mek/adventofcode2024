@@ -44,7 +44,13 @@ foreach line $rule_lines {
 #  1 a is greater than b.
 #     b must come before a.
 proc compare {rules a b} {
-    if {[dict exists $rules $a $b]} { return -1 }
+
+    # pull in the flag to set to 0 if there is a
+    # rules violation
+    global flag 
+
+    # first one is a rules violation
+    if {[dict exists $rules $a $b]} { set flag 0; return -1 }
     if {[dict exists $rules $b $a]} { return 1  }
 
     # no rule, so sort numerically
@@ -61,23 +67,13 @@ foreach line $data_lines {
     # get the elements
     set elements [split $line ","]
 
+    # assume everything is okay
+    set flag 1
+
     # sort them with our custom command
     # we have now sorted per the rules given
     # this should only affect things that were wrong.
     set sorted_elements [lsort -command [list compare $rules] $elements]
-
-    # assume everything is okay
-    set flag 1
-
-    # Check for rule violations
-    set len [expr {[llength $elements] - 1}]
-    for {set i 0} { $i < $len} {incr i} {
-      set a [lindex $elements $i]
-      set b [lindex $elements [expr {$i + 1}]]
-      if {[dict exists $rules $a $b]} {
-        set flag 0
-      }
-    } 
 
     # Fine the media, using sorted elements.
     set medianIndex [expr {[llength $sorted_elements] / 2}]
