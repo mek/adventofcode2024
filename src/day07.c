@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "../include/aoc.h"
-// 2654749936343
 #define MAX 24
 
 typedef uint64_t u64;
