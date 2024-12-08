@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 unsigned int
 str_len(const char *str)
@@ -39,6 +40,41 @@ getUint(const char *str, unsigned int *uint)
 
 }
 
+unsigned long
+get_ulong(const char *str, unsigned long *num)
+{
+
+  unsigned int pos = 0;
+  unsigned long result = 0;
+  unsigned int c;
+
+  while((c=(unsigned long) (unsigned char) (str[pos]-'0'))<10){
+    result = result * 10 + c;
+    ++pos;
+  }
+
+  *num = result;
+  return pos;
+
+}
+
+uint64_t
+get_uint64(const char *str, uint64_t *num)
+{
+
+  unsigned int pos = 0;
+  uint64_t result = 0;
+  unsigned int c;
+
+  while((c=(uint64_t) (unsigned char) (str[pos]-'0'))<10){
+    result = result * 10 + c;
+    ++pos;
+  }
+
+  *num = result;
+  return pos;
+
+}
 char
 *readLine(FILE *file)
 {

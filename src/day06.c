@@ -3,36 +3,19 @@
 #include "../include/aoc.h"
 
 /* setup our directions */
-typedef enum {
-  UP=0,
-  DOWN,
-  LEFT,
-  RIGHT,
-} dir;
+typedef enum { UP=0, DOWN, LEFT, RIGHT, } dir;
 
 /* setup the next direction */
-dir next_dir[] = {
-  RIGHT,
-  LEFT,
-  UP,
-  DOWN,
-}; 
+dir next_dir[] = { RIGHT, LEFT, UP, DOWN, }; 
 
 /* define a position */  
-typedef struct{
-  int col;
-  int row;
-} pos;
+typedef struct{ int col; int row; } pos;
 
 /* define the guard, including their
  * current position, starting position
  * and the current direction that are moving
  */
-typedef struct {
-  pos position;
-  pos start;
-  dir direction;
-} guard;
+typedef struct { pos position; pos start; dir direction; } guard;
 
 /* the field will consists of cells
  * which can have found states
@@ -41,19 +24,10 @@ typedef struct {
  * VISITED - guard has been there at least once.
  * ADD - additional obstruction
  */
-typedef enum { 
-  FREE=0,
-  BUSY,
-  VISITED,
-  ADD, /* for the what we'll be adding */
-} cell;
+typedef enum { FREE=0, BUSY, VISITED, ADD, } cell;
 
 /* define the field */ 
-typedef struct{
-  cell** cells; /* hold the status   */
-  int rows;     /* total rows (y)    */
-  int cols;     /* total columns (x) */
-} field ;
+typedef struct{ cell** cells; int rows;    int cols;   } field ;
 
 /* we'll set this in the global scope */
 field f = {NULL,0.0};
@@ -103,8 +77,7 @@ insert_line(const char *line){
     exit(1);
   }
 
-  for(i=0;i<cols;i++)
-    switch(line[i]){
+  for(i=0;i<cols;i++) switch(line[i]){
     case '.': f.cells[f.rows][i] = FREE; break;
     case '#': f.cells[f.rows][i] = BUSY; break;
     case '^': update_guard((pos){i,f.rows},UP); g.start = (pos){i,f.rows}; break;
@@ -249,4 +222,3 @@ main(int argc, char *argv[])
 
   return 0;
 }
-

@@ -34,8 +34,15 @@ obj/day06.o: src/day06.c
 	@$(CC) -Wall -c $< -o $@
 
 bin/day06: obj/day06.o lib/aoc.a include/aoc.h
-	@$(CC) $(CCFLAGS) -g -s -o $@ obj/day06.o lib/aoc.a
+	@$(CC) $(CCFLAGS) -O0 -g -s -o $@ obj/day06.o lib/aoc.a
 	
+# day 07 using the aoc library
+obj/day07.o: src/day07.c
+	@$(CC) -Wall -c $< -o $@
+
+bin/day07: obj/day07.o lib/aoc.a include/aoc.h
+	$(CC) $(CCFLAGS) -O0 -g -s -o $@ obj/day07.o lib/aoc.a
+
 .PHONY: clean
 clean:
 	@rm -f *~
