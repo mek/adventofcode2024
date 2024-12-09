@@ -26,8 +26,13 @@ bin/day03: src/day03.l src/day03.y
 
 bin/day05: src/day05.tcl
 	@echo copy $< to $@
-	cp $< $@
-	chmod 0755 $@
+	@cp $< $@
+	@chmod 0755 $@
+
+bin/day08: src/day08.tcl
+	@echo copy $< to $@
+	@cp $< $@
+	@chmod 0755 $@
 
 # day 06 using the aoc library
 obj/day06.o: src/day06.c
