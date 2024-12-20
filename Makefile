@@ -34,6 +34,10 @@ bin/day08: src/day08.tcl
 	@cp $< $@
 	@chmod 0755 $@
 
+bin/day19: src/day19.pas
+	@echo compile
+	@fpc -o$@ $<
+
 # day 06 using the aoc library
 obj/day06.o: src/day06.c
 	@$(CC) -Wall -c $< -o $@
